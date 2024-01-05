@@ -13,7 +13,7 @@ This project is a comprehensive Customer Relationship Management (CRM) and Objec
 - **Financial Transactions:** Monitor and record all financial activities.
 - **Supplier Relations:** Manage supplier information and interactions.
 - **Task Management:** Assign and track tasks within the CRM system.
-- **Price comparer:** Get the best price from your suppliers catalog.
+- **Price comparer:** Get the best prices from your suppliers catalog.
 
 ## Installation
 
