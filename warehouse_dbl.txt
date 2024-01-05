@@ -1,0 +1,90 @@
+Table parts {
+  part_id integer [pk, increment] // primary key
+  brand varchar
+  part_number varchar
+  part_name varchar
+  description text
+  category varchar [ref: > categories.category_id] 
+  barcode integer
+  supplier_id int [ref: > suppliers.supplier_id]
+}
+
+Table pricing {
+  price_id integer [pk, increment] // primary key
+  part_id integer [ref: > parts.part_id] // foreign key reference
+  input_price decimal
+  partner_output_price decimal
+  output_price decimal
+  currency varchar(3)
+  discount decimal
+  retail_price decimal
+}
+
+Table inventory {
+  inventory_id integer [pk, increment] // primary key
+  part_id integer [ref: > parts.part_id] // foreign key reference
+  quantity_in_stock integer
+  quantity_in_expectation integer [ref: > Expectation.expected_quantity]
+  safety_stock_level integer
+}
+
+Table suppliers {
+  supplier_id integer [pk, increment] // primary key
+  supplier_name varchar 
+  contact_information text
+  // Additional fields as necessary
+}
+
+Table Expectation {
+  expectation_id integer [pk, increment] // первичный ключ
+  part_id integer [ref: > inventory.part_id]// внешний ключ, ссылка на деталь
+  expected_quantity integer // количество ожидаемых товаров
+  date_added date // дата добавления в список ожидания
+  expected_arrival_date date // ожидаемая дата поступления
+  supplier_id integer [ref: > part_supplier.supplier_id] // foreign key to supplier 
+}
+
+Table part_supplier {
+  part_id integer [ref: > parts.part_id] // foreign key reference
+  supplier_id integer [ref: > suppliers.supplier_id] // foreign key reference
+  contract_id varchar
+  // Other relevant details
+}
+
+Table locations {
+  location_id integer [pk, increment] // primary key
+  shelf_rack_id varchar
+  barcode_location varchar
+}
+
+Table categories {
+  category_id integer [pk, increment] // primary key
+  category_name varchar
+  category_group varchar
+}
+
+Table part_location {
+  part_id integer [ref: > inventory.part_id] // foreign key reference
+  location_id integer [ref: > locations.location_id] // foreign key reference
+  quantity_at_location integer
+}
+
+Table sales {
+  sale_id integer [pk, increment] // primary key
+  part_id integer [ref: > parts.part_id] // foreign key reference
+  sold_date date
+  sold_quantity integer
+  sold_price integer
+  customer_id integer
+}
+
+Table metrics {
+  metric_id integer [pk, increment] // primary key
+  part_id integer [ref: > parts.part_id] // foreign key reference
+  capacity_metrics varchar
+  weight_kg decimal
+  volume_l decimal
+}
+
+
+
